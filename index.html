@@ -3,45 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIFA - AI-Assisted Failure Analysis</title>
+    <title>AIFA - AI-Assisted Failure Analysis | FractoAI</title>
     <style>
         :root {
-            --primary: #1b365d;
-            --secondary: #4299e1;
-            --accent: #38b2ac;
-            --bg-light: #f7fafc;
-            --text-dark: #2d3748;
-            --text-light: #4a5568;
+            --primary: #0f172a;
+            --primary-accent: #1e293b;
+            --brand-blue: #2563eb;
+            --brand-cyan: #0284c7;
+            --accent-green: #10b981;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
+            background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
         }
 
+        /* Navigation */
         header {
             background-color: var(--primary);
             color: white;
-            padding: 1rem 5%;
+            padding: 1rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
-        .logo {
-            font-size: 2rem;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--brand-blue);
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav ul {
@@ -51,327 +79,576 @@
         }
 
         nav a {
-            color: white;
+            color: #94a3b8;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
 
         nav a:hover {
-            color: var(--accent);
-        }
-
-        section {
-            padding: 5rem 5%;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #2a5298 100%);
             color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f2b48 100%);
+            color: white;
+            padding: 6rem 8% 7rem 8%;
             text-align: center;
-            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
             font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
             margin-bottom: 1rem;
+            letter-spacing: -0.5px;
         }
 
         .hero h2 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 400;
-            color: #cbd5e0;
-            margin-bottom: 2rem;
+            color: #94a3b8;
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .hero-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #38bdf8;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* General Layout */
+        section {
+            padding: 5rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .section-subtitle {
+            color: var(--brand-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary);
         }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: center;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-        }
-
-        .bg-gray {
-            background-color: var(--bg-light);
-        }
-
-        .stats-grid {
+        .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            margin-top: 2rem;
         }
 
-        .stat-box {
-            background: white;
+        /* Card Component */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             padding: 2rem;
-            border-left: 4px solid var(--accent);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .stat-box h3 {
-            color: var(--secondary);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Workflow Steps */
+        .workflow-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .workflow-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            background: white;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .workflow-badge {
+            background: var(--brand-blue);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Technical Flow Block */
+        .tech-box {
+            background: #0f172a;
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+        }
+
+        .tech-tag {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 2rem;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #e2e8f0;
         }
 
         th {
-            background-color: var(--primary);
-            color: white;
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .workflow-step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
+        td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
         }
 
-        .step-number {
-            background: var(--secondary);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-right: 1.5rem;
-            flex-shrink: 0;
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Team Cards */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .team-role {
+            color: var(--brand-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .team-org {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
         }
 
         footer {
-            background: var(--text-dark);
-            color: white;
+            background: var(--primary);
+            color: #94a3b8;
+            padding: 3rem 8%;
             text-align: center;
-            padding: 3rem 5%;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 900px) {
+            .grid-2, .grid-3, .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            nav {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Navigation Header -->
     <header>
-        <div class="logo">AIFA</div>
+        <a href="#home" class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 24 24">
+                <path d="M4 15l8-8 8 8M4 20l8-8 8 8"/>
+            </svg>
+            <span class="logo-text">AIFA</span>
+        </a>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#problem">The Need</a></li>
-                <li><a href="#solution">Workflow</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#product">Product</a></li>
+                <li><a href="#architecture">Architecture</a></li>
                 <li><a href="#validation">Validation</a></li>
-                <li><a href="#investment">Investment</a></li>
+                <li><a href="#business">Business Model</a></li>
                 <li><a href="#team">Team</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
-        <h1>AI-Assisted Failure Analysis</h1>
-        <h2>YOUR FAILURE ANALYSIS CONSULTANT - BUILT FOR INDUSTRY 4.0 → 5.0[cite: 1]</h2>
-        <p style="margin-top: 20px; font-style: italic;">Based on project specifications from PitchDeck-Final123.pdf[cite: 1]</p>
-        <p style="margin-top: 10px;">IIM MATRIX HACKATHON 2026 - 19 JUNE 2026[cite: 1]</p>
-    </section>
-
-    <section id="problem">
-        <h2 class="section-title">The Need</h2>
-        <div class="stats-grid">
-            <div class="stat-box">
-                <h3>$1.4 Trillion</h3>
-                <p>Lost per year by Fortune Global 500 companies due to unplanned downtime, representing 11% of total revenues[cite: 1].</p>
-            </div>
-            <div class="stat-box">
-                <h3>$260,000</h3>
-                <p>The average cost per hour of unplanned downtime in manufacturing across all sectors[cite: 1].</p>
-            </div>
-            <div class="stat-box">
-                <h3>42%</h3>
-                <p>Of all unplanned downtime is driven by equipment failure, with over 60% of those failures tracing back to aging assets and deferred maintenance[cite: 1].</p>
-            </div>
+        <div class="badge">
+            🏆 Top 10 Potential Startup — IIM-Matrix Hackathon 2026[cite: 10]
         </div>
-    </section>
-
-    <section id="solution" class="bg-gray">
-        <div class="grid-2">
-            <div>
-                <h2 class="section-title" style="text-align: left;">FractoAI Workflow</h2>
-                <p>Failure analysis is the process of identifying the root cause of a component's failure, which is traditionally manual, slow, and subjective[cite: 1]. AI-assisted methods bring automation, objectivity, and faster diagnosis[cite: 1].</p>
-                <br>
-                <div class="workflow-step">
-                    <div class="step-number">1</div>
-                    <div>
-                        <strong>Upload:</strong> Upload failure evidence, component context, material, and up to five images[cite: 1].
-                    </div>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">2</div>
-                    <div>
-                        <strong>Inspect (Agent 1):</strong> Reads images and reports observed features without assigning a cause at this stage[cite: 1].
-                    </div>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">3</div>
-                    <div>
-                        <strong>Investigate (Agent 2):</strong> Generates targeted questions adapted to the visual evidence[cite: 1].
-                    </div>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">4</div>
-                    <div>
-                        <strong>Analyze (Agents 3 & 4):</strong> Fuses image data and answers, retrieves similar cases from a vector search over 90 sourced failures, ranks hypotheses, and recommends lab tests[cite: 1].
-                    </div>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">5</div>
-                    <div>
-                        <strong>Report:</strong> Generates a 12-section engineering PDF ready to share[cite: 1].
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Novelty & The Moat</h3>
-                    <ul style="padding-left: 1.5rem; line-height: 1.8;">
-                        <li><strong>Multimodal & General:</strong> Adapts to any component or material using up to five views[cite: 1].</li>
-                        <li><strong>Grounded Reasoning:</strong> Powered by retrieval over real, source-cited failures, reasoning from precedent rather than guesswork[cite: 1].</li>
-                        <li><strong>Proprietary Data Moat:</strong> Enriches a private, outcome-labelled failure database per plant that compounds and is hard to copy[cite: 1].</li>
-                        <li><strong>Expert Grounding:</strong> Built on real refinery cases from MRPL and expert grounding from day one[cite: 1].</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="validation">
-        <h2 class="section-title">Prototype Validation</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">
-            Tested against five real, unpublished MRPL refinery failures run end-to-end from photos and context. FractoAI's top hypothesis was compared to each documented root-cause report[cite: 1].
-        </p>
-        <div class="stats-grid" style="grid-template-columns: 1fr 1fr; max-width: 800px; margin: 0 auto;">
-            <div class="stat-box" style="text-align: center;">
-                <h3 style="font-size: 3rem; color: #48bb78;">4/5</h3>
-                <p>Documented failure mode identified exactly[cite: 1]</p>
-            </div>
-            <div class="stat-box" style="text-align: center;">
-                <h3 style="font-size: 3rem; color: #ecc94b;">1/5</h3>
-                <p>Partial Match (identified correct contributors but led with a different primary mode)[cite: 1]</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="investment" class="bg-gray">
-        <h2 class="section-title">Budget Breakdown</h2>
-        <p style="text-align: center; font-size: 1.2rem; font-weight: bold;">Total Budget: ₹20,00,000[cite: 1]</p>
+        <h1>FRACTO AI[cite: 1]</h1>
+        <h2>AI-Assisted Failure Analysis — Your Failure Analysis Consultant Built for Industry 4.0 → 5.0[cite: 1]</h2>
         
-        <div style="max-width: 800px; margin: 0 auto;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Amount (₹)</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>GPU Compute & Storage (RTX 5090, one-time)[cite: 1]</td>
-                        <td>7,40,000[cite: 1]</td>
-                        <td>37.0%[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td>MoU Establishment, Partner & Deployment Travel[cite: 1]</td>
-                        <td>6,10,000[cite: 1]</td>
-                        <td>30.5%[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td>Platform, Pilot, Ops, Privacy & IP[cite: 1]</td>
-                        <td>2,45,000[cite: 1]</td>
-                        <td>12.25%[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td>Expert Consultation Data Validation[cite: 1]</td>
-                        <td>1,50,000[cite: 1]</td>
-                        <td>7.5%[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td>Expert Consultation - Pre-Deployment[cite: 1]</td>
-                        <td>1,20,000[cite: 1]</td>
-                        <td>6.0%[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td>Contingency Reserve[cite: 1]</td>
-                        <td>75,000[cite: 1]</td>
-                        <td>3.75%[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td>Multimodal Sensor Fusion[cite: 1]</td>
-                        <td>60,000[cite: 1]</td>
-                        <td>3.0%[cite: 1]</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="hero-stats">
+            <div class="hero-stat-card">
+                <div class="hero-stat-number">$1.4 Trillion[cite: 6]</div>
+                <div class="hero-stat-label">Annual loss by Fortune Global 500 companies to unplanned downtime (11% total revenue)[cite: 6].</div>
+            </div>
+            <div class="hero-stat-card">
+                <div class="hero-stat-number">$260,000 / hr[cite: 6]</div>
+                <div class="hero-stat-label">Average manufacturing downtime cost across all industry sectors[cite: 6].</div>
+            </div>
+            <div class="hero-stat-card">
+                <div class="hero-stat-number">42%[cite: 6]</div>
+                <div class="hero-stat-label">Of unplanned downtime driven directly by equipment & component failures[cite: 6].</div>
+            </div>
         </div>
     </section>
 
-    <section id="team">
-        <h2 class="section-title">Our Team</h2>
-        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-            <h3 style="margin-bottom: 1rem; color: var(--primary);">Department of Metallurgical and Materials Engineering[cite: 1]</h3>
-            <p style="margin-bottom: 2rem;">National Institute of Technology Karnataka, Surathkal[cite: 1]</p>
-            
-            <div class="grid-2" style="gap: 2rem; text-align: left;">
-                <div class="card">
-                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Team Members[cite: 1]</h4>
-                    <ul style="list-style-type: none; line-height: 1.8;">
-                        <li>Shubhang S. Galagali[cite: 1]</li>
-                        <li>Anindith B L[cite: 1]</li>
-                        <li>Suhas Gowda M[cite: 1]</li>
-                        <li>UM Tejasvi Karanth[cite: 1]</li>
-                    </ul>
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <div class="section-subtitle">Traditional FA vs AIFA[cite: 2]</div>
+            <h2 class="section-title">Bridging the Engineering Gap</h2>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3 style="color: #ef4444; margin-bottom: 1rem;">Traditional Failure Analysis[cite: 2]</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                    Visual inspection, fractography, and material testing remain heavily expert-dependent[cite: 2]. The traditional process is <strong>manual, slow, and subjective</strong>—especially when initial evidence is incomplete[cite: 2].
+                </p>
+                <ul style="color: var(--text-muted); padding-left: 1.25rem;">
+                    <li>High dependency on rare metallurgical experts[cite: 2].</li>
+                    <li>Delayed root cause diagnosis during plant downtime[cite: 2].</li>
+                    <li>Siloed case history without systematic reuse[cite: 2, 5].</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-color: var(--brand-blue);">
+                <h3 style="color: var(--brand-blue); margin-bottom: 1rem;">The AIFA Solution[cite: 2]</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                    Engineers need a structured first pass that can read images and context, retrieve precedent cases, ask the right follow-up questions, rank plausible causes, and recommend confirmatory tests[cite: 2].
+                </p>
+                <ul style="color: var(--text-muted); padding-left: 1.25rem;">
+                    <li>Automated multimodal visual read & feature detection[cite: 3, 5].</li>
+                    <li>Source-cited reasoning grounded in 102+ real failure precedents[cite: 3, 5].</li>
+                    <li>Self-validating hypothesis generation without guesswork[cite: 2, 5].</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Workflow Section -->
+    <section id="product" style="background: #f1f5f9;">
+        <div class="section-header">
+            <div class="section-subtitle">How FractoAI Works[cite: 3, 4]</div>
+            <h2 class="section-title">5-Stage AI Investigation Pipeline[cite: 4, 5]</h2>
+        </div>
+
+        <div class="grid-2">
+            <div class="workflow-list">
+                <div class="workflow-item">
+                    <div class="workflow-badge">1</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Upload Evidence[cite: 3, 4]</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Component type, material (e.g., medium-carbon/low-alloy steel), manufacturer/model, failure description, and up to 5 fracture photos[cite: 3].</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Guides[cite: 1]</h4>
-                    <ul style="list-style-type: none; line-height: 1.8;">
-                        <li>Prof. Subray R. Hegde[cite: 1]</li>
-                        <li>Dr. Sumanth Govindarajan[cite: 1]</li>
-                    </ul>
+
+                <div class="workflow-item">
+                    <div class="workflow-badge">2</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Visual Inspection (Agent 1)[cite: 4]</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Powered by Google Gemini 2.5 and CNN-based fracture mode classifiers (fatigue/brittle/ductile)[cite: 4]. Reads observed visual features with zero premature assumptions[cite: 4].</p>
+                    </div>
+                </div>
+
+                <div class="workflow-item">
+                    <div class="workflow-badge">3</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Targeted Investigation[cite: 4, 5]</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Generates 5-8 targeted questions dynamically adapted to the visual evidence and operating history[cite: 5].</p>
+                    </div>
+                </div>
+
+                <div class="workflow-item">
+                    <div class="workflow-badge">4</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Hybrid Analysis & Knowledge Graph[cite: 4, 5]</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Fuses image features + answers[cite: 3]. Performs hybrid retrieval (Semantic + BM25 + Indicators) over a 102-case database with a knowledge graph tracing causal chains[cite: 5].</p>
+                    </div>
+                </div>
+
+                <div class="workflow-item">
+                    <div class="workflow-badge">5</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Engineering Output[cite: 3, 4, 5]</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Outputs ranked hypotheses with confidence levels, cited historical evidence, recommended lab validation tests, and a shareable report[cite: 3, 5].</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-box">
+                <span class="tech-tag">FASTAPI + LANGGRAPH STACK[cite: 5]</span>
+                <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: white;">Self-Validating Reasoning Moat[cite: 5]</h3>
+                <p style="color: #cbd5e1; margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    FractoAI is built on a LangGraph state machine orchestrating multi-agent LLM reasoning alongside embedding models for retrieval[cite: 5].
+                </p>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 1.25rem; border-radius: 8px; border-left: 3px solid var(--brand-blue); margin-bottom: 1rem;">
+                    <strong style="color: white; display: block; margin-bottom: 0.25rem;">Deterministic Analysis Gate[cite: 5]</strong>
+                    <p style="color: #94a3b8; font-size: 0.85rem;">Rule-based gate decides if a case is simple or deep, dictating necessary retrieval depth[cite: 5].</p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.05); padding: 1.25rem; border-radius: 8px; border-left: 3px solid var(--accent-green);">
+                    <strong style="color: white; display: block; margin-bottom: 0.25rem;">Critic Review Logic[cite: 5]</strong>
+                    <p style="color: #94a3b8; font-size: 0.85rem;">Actively searches for counter-evidence against the leading hypothesis, forcing a pipeline revision if evidence doesn't hold[cite: 5].</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Testing & Validation Section -->
+    <section id="validation">
+        <div class="section-header">
+            <div class="section-subtitle">Rigorous Testing[cite: 8]</div>
+            <h2 class="section-title">Validation & Real-World Accuracy[cite: 8]</h2>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">Internal System Checks[cite: 8]</h3>
+                <ul style="color: var(--text-muted); line-height: 1.8; list-style-type: square; padding-left: 1.25rem;">
+                    <li><strong>70 Automated Tests:</strong> LangGraph orchestration, hybrid retrieval, and critic accept/revise logic verified[cite: 8].</li>
+                    <li><strong>Live Gemini API Smoke Tests:</strong> Catches live API model drift not visible in mocked environments[cite: 8].</li>
+                    <li><strong>102 Case Corpus Check:</strong> Leave-one-out Top-1 / Top-3 accuracy measured across historical failure data[cite: 5, 8].</li>
+                    <li><strong>Dataset Curation:</strong> Image augmentation pipeline with blurred and rotated variations for robust CNN training[cite: 4, 7].</li>
+                </ul>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white;">
+                <h3 style="margin-bottom: 1rem; color: #38bdf8;">External Validation (MRPL Refinery)[cite: 8]</h3>
+                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Tested against <strong>5 real, unpublished failure cases</strong> from Mangalore Refinery and Petrochemicals Limited (MRPL) via NITK with independent ground truth[cite: 8].
+                </p>
+
+                <div style="display: flex; gap: 1.5rem; text-align: center;">
+                    <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: #4ade80;">4 / 5</div>
+                        <div style="font-size: 0.8rem; color: #cbd5e1;">Exact Match on Fatigue, Creep Rupture & Sulfide Stress Cracking[cite: 8]</div>
+                    </div>
+                    <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: #facc15;">1 / 5</div>
+                        <div style="font-size: 0.8rem; color: #cbd5e1;">True failure mode included in output at slightly lower confidence[cite: 8]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Model Section -->
+    <section id="business" style="background: #f8fafc;">
+        <div class="section-header">
+            <div class="section-subtitle">Monetization Strategy[cite: 9]</div>
+            <h2 class="section-title">Flexible B2B Revenue Model[cite: 9]</h2>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <span class="tech-tag" style="background: #e0f2fe; color: #0284c7;">PILOT / PROJECT[cite: 9]</span>
+                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">On-Demand[cite: 9]</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Pay per failure case / project with no long-term commitment[cite: 9].</p>
+                <ul style="font-size: 0.9rem; color: var(--text-muted); padding-left: 1rem; line-height: 1.6;">
+                    <li>Evidence Analysis[cite: 9]</li>
+                    <li>Full Investigation Workflow[cite: 9]</li>
+                    <li>Engineering-Ready PDF Report[cite: 9]</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-color: var(--brand-blue);">
+                <span class="tech-tag" style="background: #dbeafe; color: #2563eb;">RECURRING[cite: 9]</span>
+                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Subscription[cite: 9]</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Monthly / annual subscription for continuous plant team access[cite: 9].</p>
+                <ul style="font-size: 0.9rem; color: var(--text-muted); padding-left: 1rem; line-height: 1.6;">
+                    <li>Regular Case Allowance[cite: 9]</li>
+                    <li>Private Failure History Base[cite: 9]</li>
+                    <li>Ongoing Platform Updates & Support[cite: 9]</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="tech-tag" style="background: #f3e8ff; color: #9333ea;">ENTERPRISE[cite: 9]</span>
+                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Deployment[cite: 9]</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Setup fee + annual platform license for custom scale[cite: 9].</p>
+                <ul style="font-size: 0.9rem; color: var(--text-muted); padding-left: 1rem; line-height: 1.6;">
+                    <li>On-premise or Private Cloud[cite: 9]</li>
+                    <li>Plant Knowledge Base Integration[cite: 9]</li>
+                    <li>Custom API & System Connectors[cite: 9]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">The Recurring Data Moat[cite: 9]</h4>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 0.95rem;">
+                More investigations → richer private failure database → stronger plant-specific intelligence → compounding long-term platform value[cite: 9].
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <div class="section-header">
+            <div class="section-subtitle">Department of Metallurgical & Materials Engineering[cite: 10]</div>
+            <h2 class="section-title">National Institute of Technology Karnataka, Surathkal[cite: 10]</h2>
+        </div>
+
+        <div style="margin-bottom: 2.5rem;">
+            <h3 style="color: var(--primary); margin-bottom: 1.25rem; text-align: center;">Faculty Guides[cite: 10]</h3>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <div class="team-card" style="min-width: 250px;">
+                    <h4 style="font-size: 1.1rem; color: var(--primary);">Prof. Subray Hegde[cite: 10]</h4>
+                    <div class="team-role">Professor[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+                <div class="team-card" style="min-width: 250px;">
+                    <h4 style="font-size: 1.1rem; color: var(--primary);">Dr. Sumanth G[cite: 10]</h4>
+                    <div class="team-role">Assistant Professor[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 style="color: var(--primary); margin-bottom: 1.25rem; text-align: center;">Student Innovators[cite: 10]</h3>
+            <div class="team-grid">
+                <div class="team-card">
+                    <h4 style="font-size: 1rem;">Shubhang S Galagali[cite: 10]</h4>
+                    <div class="team-role">Student[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+                <div class="team-card">
+                    <h4 style="font-size: 1rem;">Anindith B L[cite: 10]</h4>
+                    <div class="team-role">Student[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+                <div class="team-card">
+                    <h4 style="font-size: 1rem;">Tejasvi Karanth[cite: 10]</h4>
+                    <div class="team-role">Student[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+                <div class="team-card">
+                    <h4 style="font-size: 1rem;">Suhas Gowda[cite: 10]</h4>
+                    <div class="team-role">Student[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+                <div class="team-card">
+                    <h4 style="font-size: 1rem;">Nithin[cite: 10]</h4>
+                    <div class="team-role">Student[cite: 10]</div>
+                    <div class="team-org">NITK Surathkal[cite: 10]</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <div class="logo" style="margin-bottom: 1rem;">AIFA</div>
-        <p>Built for Industry 4.0 → 5.0[cite: 1]</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;">National Institute of Technology Karnataka, Surathkal[cite: 1]</p>
+        <div class="logo-container" style="justify-content: center; margin-bottom: 1rem;">
+            <svg class="logo-svg" viewBox="0 0 24 24">
+                <path d="M4 15l8-8 8 8M4 20l8-8 8 8"/>
+            </svg>
+            <span class="logo-text">AIFA</span>
+        </div>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">AI-Assisted Failure Analysis — Built for Industry 4.0 → 5.0[cite: 1]</p>
+        <p style="font-size: 0.8rem; color: #64748b;">Department of Metallurgical and Materials Engineering, NITK Surathkal[cite: 10]</p>
     </footer>
 
 </body>
