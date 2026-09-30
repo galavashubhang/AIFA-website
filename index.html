@@ -53,14 +53,10 @@
             color: white;
         }
 
-        .logo-svg {
-            width: 32px;
-            height: 32px;
-            fill: none;
-            stroke: var(--brand-blue);
-            stroke-width: 3.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
         }
 
         .logo-text {
@@ -262,42 +258,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Table */
-        .table-container {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th {
-            background: #f8fafc;
-            padding: 1rem 1.5rem;
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-color);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        td {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Team Cards */
+        /* Team Cards & Links */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -310,6 +271,19 @@
             border-radius: 10px;
             border: 1px solid var(--border-color);
             text-align: center;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .team-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .team-card-link .team-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--brand-blue);
+            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.1);
         }
 
         .team-role {
@@ -351,9 +325,7 @@
     <!-- Navigation Header -->
     <header>
         <a href="#home" class="logo-container">
-            <svg class="logo-svg" viewBox="0 0 24 24">
-                <path d="M4 15l8-8 8 8M4 20l8-8 8 8"/>
-            </svg>
+            <img src="logo.png" alt="AIFA Logo" class="logo-img" onerror="this.style.display='none'">
             <span class="logo-text">AIFA</span>
         </a>
         <nav>
@@ -476,7 +448,7 @@
                 </div>
             </div>
 
-            <div class="tech-box">
+            <div class="tech-box" id="architecture">
                 <span class="tech-tag">FASTAPI + LANGGRAPH STACK</span>
                 <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: white;">Self-Validating Reasoning Moat</h3>
                 <p style="color: #cbd5e1; margin-bottom: 1.5rem; font-size: 0.95rem;">
@@ -594,16 +566,20 @@
         <div style="margin-bottom: 2.5rem;">
             <h3 style="color: var(--primary); margin-bottom: 1.25rem; text-align: center;">Faculty Guides</h3>
             <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                <div class="team-card" style="min-width: 250px;">
-                    <h4 style="font-size: 1.1rem; color: var(--primary);">Prof. Subray Hegde</h4>
-                    <div class="team-role">Professor</div>
-                    <div class="team-org">NITK Surathkal</div>
-                </div>
-                <div class="team-card" style="min-width: 250px;">
-                    <h4 style="font-size: 1.1rem; color: var(--primary);">Dr. Sumanth G</h4>
-                    <div class="team-role">Assistant Professor</div>
-                    <div class="team-org">NITK Surathkal</div>
-                </div>
+                <a href="https://mme.nitk.ac.in/faculty/subray-r-hegde" target="_blank" rel="noopener noreferrer" class="team-card-link">
+                    <div class="team-card" style="min-width: 250px;">
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Prof. Subray Hegde ↗</h4>
+                        <div class="team-role">Professor</div>
+                        <div class="team-org">NITK Surathkal</div>
+                    </div>
+                </a>
+                <a href="https://mme.nitk.ac.in/professor/sumanth-govindarajan" target="_blank" rel="noopener noreferrer" class="team-card-link">
+                    <div class="team-card" style="min-width: 250px;">
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">Dr. Sumanth G ↗</h4>
+                        <div class="team-role">Assistant Professor</div>
+                        <div class="team-org">NITK Surathkal</div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -642,9 +618,7 @@
     <!-- Footer -->
     <footer>
         <div class="logo-container" style="justify-content: center; margin-bottom: 1rem;">
-            <svg class="logo-svg" viewBox="0 0 24 24">
-                <path d="M4 15l8-8 8 8M4 20l8-8 8 8"/>
-            </svg>
+            <img src="logo.png" alt="AIFA Logo" class="logo-img" onerror="this.style.display='none'">
             <span class="logo-text">AIFA</span>
         </div>
         <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">AI-Assisted Failure Analysis — Built for Industry 4.0 → 5.0</p>
